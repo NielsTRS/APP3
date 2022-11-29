@@ -8,15 +8,14 @@ A lire absolument !
 
 Renseignez ici les noms des membres de votre binôme :
 
-Nom1 - prénom1 : ....
-Nom2 - prénom2 : ....
+TERESE - Niels : INM3
+SELME - Kelyan : INM3
 
 Si vous avez des commentaires, remarques etc. pour le rendu, vous pouvez les 
 mettre ici:
 
-...
-...
-...
+L'algorithme de l'acte 1 a une complexité de : O(n) ?
+L'algorithme de l'acte 2 a une complexité de : O(n) ?
 
 
 
