@@ -1,4 +1,4 @@
-all: main acte1 acte2 acte3 acte3b acte4
+all: main acte1 acte2 acte3 acte3b acte4 dot_generation
 
 
 CC=clang
@@ -28,11 +28,14 @@ acte3: acte3.o $(OBJS)
 acte3b: acte3b.o $(OBJS)
 acte4: acte4.o $(OBJS)
 
+dot_generation.o: dot_generation.c arbres.h
+
 .PHONY: tests_acte1 tests_acte2 tests_acte3 tests_acte3b tests_acte4
 
 # Ici, on utilise l'"intelligence" de 'make' qui saura tout seul
 # comment créer les .o à partir des .c
 main: main.o arbresphylo.o arbres.o listes.o
+dot_generation: dot_generation.o arbres.o
 
 clean:
 	rm -f main *.o
