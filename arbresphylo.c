@@ -116,13 +116,14 @@ int ajouter_espece(arbre *a, char *espece, cellule_t *seq) {
  * Appeler la fonction avec fout=stdin pour afficher sur la sortie standard.
  */
 void afficher_par_niveau_rec(arbre racine, FILE *fout, int niveau) {
-    if (racine == NULL)
+    if (racine == NULL) {
         return;
+    }
     if (niveau == 1) {
-        if (racine->gauche != NULL || racine->droit != NULL) {
+        if (racine->gauche != NULL || racine->droit != NULL) { // si racine n'est pas une feuille
             fprintf(fout, "%s ", racine->valeur);
         }
-    } else if (niveau > 1) {
+    } else {
         afficher_par_niveau_rec(racine->gauche, fout, niveau - 1);
         afficher_par_niveau_rec(racine->droit, fout, niveau - 1);
     }
