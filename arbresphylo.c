@@ -19,8 +19,8 @@ void analyse_arbre(arbre racine, int *nb_esp, int *nb_carac) {
         return;
     }
 
-    if (racine->droit == NULL && racine->gauche == NULL) {
-        *nb_esp += 1;
+    if (racine->droit == NULL && racine->gauche == NULL) { // si racine est une feuille
+        *nb_esp = 1;
         *nb_carac = 0;
         return;
     }
@@ -60,8 +60,39 @@ int rechercher_espece(arbre racine, char *espece, liste_t *seq) {
  * message d'erreur.
  */
 int ajouter_espece(arbre *a, char *espece, cellule_t *seq) {
+    if (seq != NULL) { // si seq n'est pas vide
+        if (*a == NULL) { // si l'arbre est null, on crée un noeud
+            *a = nouveau_noeud();
+            (*a)->valeur = seq->val;
+            seq = seq->suivant;
+            ajouter_espece(&(*a)->droit, espece, seq);
+        } else if (strcmp((*a)->valeur, seq->val) == 0) { // s'il y a une correspondance des caractéristiques
+            seq = seq->suivant;
+            ajouter_espece(&(*a)->droit, espece, seq);
+        } else if ((*a)->gauche == NULL && (*a)->droit == NULL) { // si a est une feuille
+            arbre b = nouveau_noeud();
+            b->valeur = (*a)->valeur;
 
-    return 1;
+            *a = nouveau_noeud();
+            (*a)->valeur = seq->val;
+
+            seq = seq->suivant;
+            ajouter_espece(&(*a)->droit, espece, seq);
+
+            (*a)->gauche = b;
+        } else { // s'il n'y a pas de correspondance des caractéristiques
+            ajouter_espece(&(*a)->gauche, espece, seq);
+        }
+    } else { // seq est vide
+        if (*a == NULL) { // si l'arbre est null, on crée un noeud
+            *a = nouveau_noeud();
+            (*a)->valeur = espece;
+        } else {
+            printf("Ne peut ajouter <%s>: possède les mêmes caractères que <%s>.\n", espece, (*a)->valeur);
+            return 1;
+        }
+    }
+    return 0;
 }
 
 /* Doit afficher la liste des caractéristiques niveau par niveau, de gauche
