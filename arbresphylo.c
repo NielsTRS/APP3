@@ -9,15 +9,15 @@
 int profondeur(arbre racine) {
     if (racine == NULL) {
         return -1;
-    } else {
-        int p_gauche = profondeur(racine->gauche);
-        int p_droit = profondeur(racine->droit);
+    }
 
-        if (p_droit >= p_gauche) {
-            return p_droit + 1;
-        } else {
-            return p_gauche + 1;
-        }
+    int p_gauche = profondeur(racine->gauche);
+    int p_droit = profondeur(racine->droit);
+
+    if (p_droit >= p_gauche) {
+        return p_droit + 1;
+    } else {
+        return p_gauche + 1;
     }
 
 }
