@@ -5,17 +5,12 @@
 void dot_generation_rec(arbre a, FILE *f) {
 
     if (a->gauche != NULL) {
-        fprintf(f, "%s -> %s [label = \"non\"]", a->valeur, a->gauche->valeur);
-        fprintf(f, "\n");
+        fprintf(f, "%s -> %s [label = \"non\"]\n", a->valeur, a->gauche->valeur);
         dot_generation_rec(a->gauche, f);
     }
 
     if (a->droit != NULL) {
-        fprintf(f, "%s", a->valeur);
-        fprintf(f, " -> ");
-        fprintf(f, "%s", a->droit->valeur);
-        fprintf(f, " [label = \"oui\"]\n");
-        fprintf(f, "\n");
+        fprintf(f, "%s -> %s [label = \"oui\"]\n", a->valeur, a->droit->valeur);
         dot_generation_rec(a->droit, f);
     }
 
