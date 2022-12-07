@@ -6,6 +6,22 @@
 #include "arbresphylo.h"
 #include "listes.h"
 
+int profondeur(arbre racine) {
+    if (racine == NULL) {
+        return -1;
+    } else {
+        int p_gauche = profondeur(racine->gauche);
+        int p_droit = profondeur(racine->droit);
+
+        if (p_droit >= p_gauche) {
+            return p_droit + 1;
+        } else {
+            return p_gauche + 1;
+        }
+    }
+
+}
+
 void analyse_arbre(arbre racine, int *nb_esp, int *nb_carac) {
     int espece_d = 0;
     int caractere_d = 0;
@@ -99,9 +115,28 @@ int ajouter_espece(arbre *a, char *espece, cellule_t *seq) {
  * à droite, dans le fichier fout.
  * Appeler la fonction avec fout=stdin pour afficher sur la sortie standard.
  */
-void afficher_par_niveau(arbre racine, FILE *fout) {
-    printf("<<<<< À faire: fonction afficher_par_niveau fichier " __FILE__ "\n >>>>>");
+void afficher_par_niveau_rec(arbre racine, FILE *fout, int niveau) {
+    if (racine == NULL)
+        return;
+    if (niveau == 1) {
+        if (racine->gauche != NULL || racine->droit != NULL) {
+            fprintf(fout, "%s ", racine->valeur);
+        }
+    } else if (niveau > 1) {
+        afficher_par_niveau_rec(racine->gauche, fout, niveau - 1);
+        afficher_par_niveau_rec(racine->droit, fout, niveau - 1);
+    }
 }
+
+void afficher_par_niveau(arbre racine, FILE *fout) {
+    int p = profondeur(racine);
+    int i;
+    for (i = 1; i <= p; i++) {
+        afficher_par_niveau_rec(racine, fout, i);
+        fprintf(fout, "\n");
+    }
+}
+
 
 // Acte 4
 
